@@ -1,5 +1,4 @@
 from django.contrib import admin
-from nested_inlines.admin import NestedModelAdmin, NestedStackedInline, NestedTabularInline
 from sipaer.models import Ocorrencia, Aeronave, Fator, Lesao, Tripulacao, AeronaveDetalhe, FatorContribuicao
 
 class AeronaveAdmin(admin.ModelAdmin):
@@ -18,7 +17,7 @@ class FatorContribuicaoAdmin(admin.ModelAdmin):
     list_display = ('nivel_contribuicao',)
     ordering = ('nivel_contribuicao',)
 
-class FatorContribuicaoInline(NestedTabularInline):
+class FatorContribuicaoInline(admin.TabularInline):
     model = FatorContribuicao
     extra = 1
 
@@ -26,33 +25,34 @@ class TripulacaoAdmin(admin.ModelAdmin):
     list_display = ('codigo_anac','funcao')
     ordering = ('nome',)
 
+class TripulacaoInline(admin.TabularInline):
+    model = Tripulacao
+    extra = 1
+
 class LesaoAdmin(admin.ModelAdmin):
     list_display = ('tipo_lesao','quantidade')
     search_fields = ('tipo_lesao','quantidade')
     ordering = ('quantidade',)
 
-#class LesaoInline(admin.TabularInline):
-class LesaoInline(NestedStackedInline):
+class LesaoInline(admin.TabularInline):
     model = Lesao
-    extra = 2
+    extra = 1
 
 class AeronaveDetalheAdmin(admin.ModelAdmin):
     list_display = ('aeronave','operador', 'fase_voo')
     ordering = ('operador',)
-    inlines = [LesaoInline,]
+    inlines = [LesaoInline,TripulacaoInline,]
 
-#class AeronaveDetalheInline(admin.StackedInline):
-class AeronaveDetalheInline(NestedStackedInline):
+class AeronaveDetalheInline(admin.StackedInline):
     model = AeronaveDetalhe
     extra = 1
-    inlines = [LesaoInline,]
+    inlines = [LesaoInline,TripulacaoInline]
     #readonly_fields = ('changeform_link', )
 
-#class OcorrenciaAdmin(admin.ModelAdmin):
-class OcorrenciaAdmin(NestedModelAdmin):
+class OcorrenciaAdmin(admin.ModelAdmin):
     list_display = ('classificacao','tipo','aerodromo','dia')
     search_fields = ('classificacao','aerodromo')
-    list_filter = ('classificacao','tipo')
+    list_filter = ('classificacao','tipo','dia')
     #ordering = ('dia',)
     #date_hierarchy = 'dia'
     #ERRO#raw_id_fields = ('lesao',)
