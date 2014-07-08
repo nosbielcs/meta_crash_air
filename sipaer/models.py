@@ -1,8 +1,6 @@
 from django.db import models
 from sipaer.taxonomia import ClassificacaoTaxonomia, AeronaveTaxonomia, ComandoTaxonomia
-import datetime
-
-# Create your models here.
+from django.contrib.auth.models import User
 
 class Aeronave(models.Model):
     matricula = models.CharField(max_length=50)
@@ -30,10 +28,21 @@ class Fator(models.Model):
         return area + ' - ' + fator
 
 class Ocorrencia(models.Model):
+    #usuario = models.ForeignKey(User)
+    #emitido_por = models.ManyToOneRel()
+    #emitido_por = models.ForeignKey(User)
+    #confirmado_por = models.ForeignKey(User)
+    #autenticado_por = models.ForeignKey(User)
+    #cadastrado_por = models.ForeignKey(User)
+    #revisado_por = models.ForeignKey(User)
+
     classificacao = models.CharField(max_length=20, choices=ClassificacaoTaxonomia.CLASSIFICACAO, default='-')
     tipo = models.CharField(max_length=100)
-    dia = models.DateTimeField('Data da Ocorrência:')
+    dia = models.DateField()
+    horario = models.TimeField()
     comando_investigador = models.CharField(max_length=12, choices=ComandoTaxonomia.COMANDO, default='-')
+    origem = models.CharField(max_length=25)
+    destino = models.CharField(max_length=25)
     aerodromo = models.CharField(max_length=25)
     cidade = models.CharField(max_length=60)
     uf = models.CharField(max_length=2)
@@ -53,19 +62,6 @@ class AeronaveDetalhe(models.Model):
     danos = models.CharField(max_length=15, choices=AeronaveTaxonomia.DANOS, default = '-')
     aeronave = models.ForeignKey(Aeronave)
     ocorrencia = models.ForeignKey(Ocorrencia)
-
-    '''def changeform_link(self):
-        if self.id:
-            # Replace "myapp" with the name of the app containing
-            # your Certificate model:
-            changeform_url = urlresolvers.reverse(
-                'admin:sipaer_aeronavedetalhe_change', args=(self.id,)
-                )
-            return u'<a href="%s" target="_blank">Detalhes</a>' % changeform_url
-        return u''
-    changeform_link.allow_tags = True
-    changeform_link.short_description = 'Lesoes'   # omit column header'''
-
     def __str__(self):
         return self.operador
 
@@ -79,7 +75,6 @@ class Lesao(models.Model):
     pessoa = models.CharField(max_length=15)
     quantidade = models.IntegerField()
     aeronave_detalhe = models.ForeignKey(AeronaveDetalhe)
-
     def __str__(self):
         return self.tipo_lesao
 
@@ -89,14 +84,9 @@ class Tripulacao(models.Model):
     nome = models.CharField(max_length=60)
     orgao_expedidor = models.CharField(max_length=15)
     total_horas_voo = models.FloatField()
-    horas_voo_modelo = models.FloatField()
+    horas_voo_modelo = models.FloatField(max_length=3)
     horas_voo_ultimos_30d = models.FloatField()
     horas_voo_ultimas_24h = models.FloatField()
     aeronave_detalhe = models.ForeignKey(AeronaveDetalhe)
     def __str__(self):
         return self.nome
-
-
-
-
-
