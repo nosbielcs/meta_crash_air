@@ -37,7 +37,7 @@ class ComandoTaxonomia():
     def __str__(self):
         return self.COMANDO
 
-#DETALHES DA AERONAVE
+#DANOS DA AERONAVE
 
 class AeronaveTaxonomia():
     NENHUM = 'NENHUM'
@@ -50,3 +50,18 @@ class AeronaveTaxonomia():
             (TOTAL, 'TOTAL'))
     def __str__(self):
         return self.DANOS
+
+
+#CONTRIBUICAO DO FATOR
+class FatorContribuicao():
+    CONTRIBUIU = 'CONTRIBUIU'
+    INDETERMINADO = 'INDETERMINADO'
+    NAO_CONTRIBUIU = 'NAO CONTRIBUIU'
+    TAXONOMIA = (
+            (CONTRIBUIU, 'CONTRIBUIU'),
+            (INDETERMINADO, 'INDETERMINADO'),
+            (NAO_CONTRIBUIU, 'NAO CONTRIBUIU'))
+    def __str__(self):
+        return self.TAXONOMIA
+		
+#INSERIR TODOS

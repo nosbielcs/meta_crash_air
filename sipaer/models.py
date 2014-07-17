@@ -1,6 +1,28 @@
 from django.db import models
-from sipaer.taxonomia import ClassificacaoTaxonomia, AeronaveTaxonomia, ComandoTaxonomia
-from django.contrib.auth.models import User
+from sipaer.taxonomia import ClassificacaoTaxonomia, AeronaveTaxonomia, ComandoTaxonomia, FatorContribuicao
+
+class Pais(models.Model):
+    pais = models.CharField(max_length=50)
+    def __str__(self):
+        return self.pais
+
+class Uf(models.Model):
+    uf_nome = models.CharField(max_length=100, null=True)
+    uf_codigo = models.CharField(max_length=2, null=True)
+    def __str__(self):
+        return self.uf
+
+class Cidade(models.Model):
+    cidade = models.CharField(max_length=100)
+    uf = models.ForeignKey(Uf, null=True)
+    pais = models.ForeignKey(Pais)
+    def __str__(self):
+        return self.cidade + ' - ' + self.uf.uf_codigo + ' - ' + self.pais.pais
+
+class Aerodromo(models.Model):
+    icao = models.CharField(max_length=10)
+    iata = models.CharField(max_length=10)
+    cidade = models.ForeignKey(Cidade)
 
 class Aeronave(models.Model):
     matricula = models.CharField(max_length=50)
@@ -28,14 +50,6 @@ class Fator(models.Model):
         return area + ' - ' + fator
 
 class Ocorrencia(models.Model):
-    #usuario = models.ForeignKey(User)
-    #emitido_por = models.ManyToOneRel()
-    #emitido_por = models.ForeignKey(User)
-    #confirmado_por = models.ForeignKey(User)
-    #autenticado_por = models.ForeignKey(User)
-    #cadastrado_por = models.ForeignKey(User)
-    #revisado_por = models.ForeignKey(User)
-
     classificacao = models.CharField(max_length=20, choices=ClassificacaoTaxonomia.CLASSIFICACAO, default='-')
     tipo = models.CharField(max_length=100)
     dia = models.DateField()
@@ -43,10 +57,10 @@ class Ocorrencia(models.Model):
     comando_investigador = models.CharField(max_length=12, choices=ComandoTaxonomia.COMANDO, default='-')
     origem = models.CharField(max_length=25)
     destino = models.CharField(max_length=25)
-    aerodromo = models.CharField(max_length=25)
-    cidade = models.CharField(max_length=60)
-    uf = models.CharField(max_length=2)
-    pais = models.CharField(max_length=30)
+    aerodromo = models.ForeignKey(Aerodromo)
+    cidade = models.ForeignKey(Cidade)
+    #uf = models.CharField(max_length=2)
+    #pais = models.CharField(max_length=30)
     documento = models.CharField(max_length=50)
     situacao = models.CharField(max_length=45)
     status_documento = models.CharField(max_length=45)
@@ -66,9 +80,10 @@ class AeronaveDetalhe(models.Model):
         return self.operador
 
 class FatorContribuicao(models.Model):
-    nivel_contribuicao = models.CharField(max_length = 20)
-    ocorrencia = models.ForeignKey(Ocorrencia)
     fator = models.ForeignKey(Fator)
+    nivel_contribuicao = models.CharField(max_length = 20, choices=FatorContribuicao.TAXONOMIA, default = '-')
+    latente = models.BooleanField()
+    ocorrencia = models.ForeignKey(Ocorrencia)
 
 class Lesao(models.Model):
     tipo_lesao = models.CharField(max_length = 50)
@@ -90,16 +105,17 @@ class Tripulacao(models.Model):
     aeronave_detalhe = models.ForeignKey(AeronaveDetalhe)
     def __str__(self):
         return self.nome
-        
+
 class Violacao(models.Model):
-    tipo = models.Charfield(max_length=50)
-    area = models.Charfield(max_length=50)
-    status = model.Charfield(max_length=30)
+    tipo = models.CharField(max_length=50)
+    area = models.CharField(max_length=50)
+    status = models.CharField(max_length=30)
     def __str__(self):
         return self.tipo
 
 class ViolacaoDetalhe(models.Model):
-    detalhe = models.Textfield(max_length=2000)
+    detalhe = models.CharField(max_length=200)
     ocorrencia = models.ForeignKey(Ocorrencia)
-    violacao = models.ForeignKey(violacao)
-
+    violacao = models.ForeignKey(Violacao)
+	
+#FIM MODEL

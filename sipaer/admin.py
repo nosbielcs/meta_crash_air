@@ -1,5 +1,8 @@
 from django.contrib import admin
-from sipaer.models import Ocorrencia, Aeronave, Fator, Lesao, Tripulacao, AeronaveDetalhe, FatorContribuicao
+from sipaer.models import Ocorrencia, Aeronave, Fator, Lesao, Tripulacao, AeronaveDetalhe, FatorContribuicao, Pais, Uf, Cidade, Aerodromo
+
+class CidadeAdmin(admin.ModelAdmin):
+    list_display = ('cidade',)
 
 class AeronaveAdmin(admin.ModelAdmin):
     list_display = ('matricula', 'equipamento', 'fabricante', 'modelo', 'categoria')
@@ -14,8 +17,9 @@ class FatorAdmin(admin.ModelAdmin):
     ordering = ('area',)
 
 class FatorContribuicaoAdmin(admin.ModelAdmin):
-    list_display = ('nivel_contribuicao',)
-    ordering = ('nivel_contribuicao',)
+    list_display = ('latente','nivel_contribuicao',)
+    ordering = ('latente','nivel_contribuicao',)
+
 
 class FatorContribuicaoInline(admin.TabularInline):
     model = FatorContribuicao
@@ -49,6 +53,7 @@ class AeronaveDetalheInline(admin.StackedInline):
     inlines = [LesaoInline,TripulacaoInline]
     #readonly_fields = ('changeform_link', )
 
+
 class OcorrenciaAdmin(admin.ModelAdmin):
     list_display = ('classificacao','tipo','aerodromo','dia')
     search_fields = ('classificacao','aerodromo')
@@ -59,6 +64,9 @@ class OcorrenciaAdmin(admin.ModelAdmin):
     inlines = [AeronaveDetalheInline, FatorContribuicaoInline,]
 
 # Register your models here.
+admin.site.register(Pais)
+admin.site.register(Uf)
+admin.site.register(Cidade, CidadeAdmin)
 admin.site.register(Aeronave, AeronaveAdmin)
 admin.site.register(Fator, FatorAdmin)
 admin.site.register(Lesao, LesaoAdmin)
@@ -66,3 +74,5 @@ admin.site.register(Tripulacao, TripulacaoAdmin)
 admin.site.register(AeronaveDetalhe, AeronaveDetalheAdmin)
 admin.site.register(FatorContribuicao, FatorContribuicaoAdmin)
 admin.site.register(Ocorrencia, OcorrenciaAdmin)
+
+#FIM ADMIN
