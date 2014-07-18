@@ -83,23 +83,27 @@ class DocumentoTaxonomia():
     RAI = 'RAI'
     RP = 'RP'
     RF = 'RF'
+    SUMA = 'SUMA'
+    OFICIO = 'OFICIO'
     DOCUMENTO = (
+        (OFICIO, 'OFICIO'),
         (FNCO, 'FNCO'),
         (RAI, 'RAI'),
         (RP, 'RP'),
-        (RF, 'RF')
+        (RF, 'RF'),
+        (SUMA, 'SUMA')
     )
     def __str__(self):
         return self.DOCUMENTO
 
 #STATUS DOCUMENTO
 class StatusDocumentoTaxonomia():
-    FINALIZADO = 'FINALIZADO'
-    EM_CURSO = 'EM CURSO'
+    AUTENTICADO = 'AUTENTICADO'
+    RECUSADO = 'RECUSADO'
     PUBLICADO = 'PUBLICADO'
     DOCUMENTOSTATUS = (
-        (FINALIZADO, 'FINALIZADO'),
-        (EM_CURSO, 'EM CURSO'),
+        (AUTENTICADO, 'AUTENTICADO'),
+        (RECUSADO, 'RECUSADO'),
         (PUBLICADO, 'PUBLICADO')
     )
     def __str__(self):
@@ -117,3 +121,14 @@ class SituacaoTaxonomia():
     )
     def __str__(self):
         return self.SITUACAO
+
+#STATUS SITUACAO
+class StatusSituacaoTaxonomia():
+    ATIVA = 'ATIVA'
+    FINALIZADA = 'FINALIZADA'
+    SITUACAOSTATUS = (
+        (ATIVA, 'ATIVA'),
+        (FINALIZADA, 'FINALIZADA')
+    )
+    def __str__(self):
+        return self.SITUACAOSTATUS
