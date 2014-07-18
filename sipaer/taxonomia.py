@@ -53,15 +53,65 @@ class AeronaveTaxonomia():
 
 
 #CONTRIBUICAO DO FATOR
-class FatorContribuicao():
+class FatorContribuicaoTaxonomia():
     CONTRIBUIU = 'CONTRIBUIU'
     INDETERMINADO = 'INDETERMINADO'
     NAO_CONTRIBUIU = 'NAO CONTRIBUIU'
-    TAXONOMIA = (
+    FATORCONTRIBUINTE = (
             (CONTRIBUIU, 'CONTRIBUIU'),
             (INDETERMINADO, 'INDETERMINADO'),
             (NAO_CONTRIBUIU, 'NAO CONTRIBUIU'))
     def __str__(self):
-        return self.TAXONOMIA
+        return self.FATORCONTRIBUINTE
 		
-#INSERIR TODOS
+#SIM-NÃO
+class SimNaoTaxonomia():
+    SIM = 'SIM'
+    NAO = 'NAO'
+    SIMNAO = (
+        (NAO, 'NAO'),
+        (SIM, 'SIM')
+    )
+    def __str__(self):
+        return self.SIMNAO
+
+#DOCUMENTO
+class DocumentoTaxonomia():
+    FNCO = 'FNCO'
+    RAI = 'RAI'
+    RP = 'RP'
+    RF = 'RF'
+    DOCUMENTO = (
+        (FNCO, 'FNCO'),
+        (RAI, 'RAI'),
+        (RP, 'RP'),
+        (RF, 'RF')
+    )
+    def __str__(self):
+        return self.DOCUMENTO
+
+#STATUS DOCUMENTO
+class StatusDocumentoTaxonomia():
+    FINALIZADO = 'FINALIZADO'
+    APROVADO = 'APROVADO'
+    PUBLICADO = 'PUBLICADO'
+    DOCUMENTOSTATUS = (
+        (FINALIZADO, 'FINALIZADO'),
+        (APROVADO, 'APROVADO'),
+        (PUBLICADO, 'PUBLICADO')
+    )
+    def __str__(self):
+        return self.DOCUMENTOSTATUS
+
+# SITUACAO OCORRENCIA
+class SituacaoTaxonomia():
+    NAO_INVESTIGADO = 'NAO INVESTIGADO'
+    INVESTIGADO = 'INVESTIGADO'
+    EM_ANALISE = 'EM ANALISE'
+    SITUACAO = (
+        (NAO_INVESTIGADO, 'NAO INVESTIGADO'),
+        (INVESTIGADO, 'INVESTIGADO'),
+        (EM_ANALISE, 'EM ANALISE')
+    )
+    def __str__(self):
+        return self.SITUACAO
