@@ -47,7 +47,7 @@ class TripulacaoAdmin(admin.ModelAdmin):
 
 class TripulacaoInline(admin.TabularInline):
     model = Tripulacao
-    extra = 0
+    extra = 1
 
 class LesaoAdmin(admin.ModelAdmin):
     list_display = ('tipo_lesao','quantidade')
@@ -56,7 +56,7 @@ class LesaoAdmin(admin.ModelAdmin):
 
 class LesaoInline(admin.TabularInline):
     model = Lesao
-    extra = 0
+    extra = 1
 
 class AeronaveDetalheAdmin(admin.ModelAdmin):
     list_display = ('aeronave','operador', 'fase_voo')
@@ -65,7 +65,7 @@ class AeronaveDetalheAdmin(admin.ModelAdmin):
 
 class AeronaveDetalheInline(admin.StackedInline):
     model = AeronaveDetalhe
-    extra = 0
+    extra = 1
     inlines = [LesaoInline,TripulacaoInline]
     #readonly_fields = ('changeform_link', )
 
