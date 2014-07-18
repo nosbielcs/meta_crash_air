@@ -1,14 +1,16 @@
-
+# -*- encoding: utf-8 -*-
 #CLASSIFICACAO
 class ClassificacaoTaxonomia():
     ACIDENTE = 'ACIDENTE'
     INCIDENTE_GRAVE = 'INCIDENTE GRAVE'
     INCIDENTE = 'INCIDENTE'
     ANORMAL = 'ANORMAL'
+    TRAFEGO_AEREO = 'TRAFEGO AEREO'
     CLASSIFICACAO = ((ACIDENTE, 'ACIDENTE'),
-                    (INCIDENTE_GRAVE, 'INCIDENTE GRAVE'),
-                    (INCIDENTE, 'INCIDENTE'),
-                    (ANORMAL, 'ANORMAL'))
+                     (INCIDENTE_GRAVE, 'INCIDENTE GRAVE'),
+                     (INCIDENTE, 'INCIDENTE'),
+                     (ANORMAL, 'ANORMAL'),
+                     (TRAFEGO_AEREO, 'TRAFEGO AEREO'))
     def __str__(self):
         return self.CLASSIFICACAO
 
@@ -37,7 +39,7 @@ class ComandoTaxonomia():
     def __str__(self):
         return self.COMANDO
 
-#DETALHES DA AERONAVE
+#DANOS DA AERONAVE
 
 class AeronaveTaxonomia():
     NENHUM = 'NENHUM'
@@ -45,8 +47,73 @@ class AeronaveTaxonomia():
     GRAVE = 'GRAVE'
     TOTAL = 'TOTAL'
     DANOS = ((NENHUM, 'NENHUM'),
-            (LEVE, 'LEVE'),
-            (GRAVE, 'GRAVE'),
-            (TOTAL, 'TOTAL'))
+             (LEVE, 'LEVE'),
+             (GRAVE, 'GRAVE'),
+             (TOTAL, 'TOTAL'))
     def __str__(self):
         return self.DANOS
+
+
+#CONTRIBUICAO DO FATOR
+class FatorContribuicaoTaxonomia():
+    CONTRIBUIU = 'CONTRIBUIU'
+    INDETERMINADO = 'INDETERMINADO'
+    NAO_CONTRIBUIU = 'NAO CONTRIBUIU'
+    FATORCONTRIBUINTE = (
+        (CONTRIBUIU, 'CONTRIBUIU'),
+        (INDETERMINADO, 'INDETERMINADO'),
+        (NAO_CONTRIBUIU, 'NAO CONTRIBUIU'))
+    def __str__(self):
+        return self.FATORCONTRIBUINTE
+
+#SIM-NÃO
+class SimNaoTaxonomia():
+    SIM = 'SIM'
+    NAO = 'NAO'
+    SIMNAO = (
+        (NAO, 'NAO'),
+        (SIM, 'SIM')
+    )
+    def __str__(self):
+        return self.SIMNAO
+
+#DOCUMENTO
+class DocumentoTaxonomia():
+    FNCO = 'FNCO'
+    RAI = 'RAI'
+    RP = 'RP'
+    RF = 'RF'
+    DOCUMENTO = (
+        (FNCO, 'FNCO'),
+        (RAI, 'RAI'),
+        (RP, 'RP'),
+        (RF, 'RF')
+    )
+    def __str__(self):
+        return self.DOCUMENTO
+
+#STATUS DOCUMENTO
+class StatusDocumentoTaxonomia():
+    FINALIZADO = 'FINALIZADO'
+    EM_CURSO = 'EM CURSO'
+    PUBLICADO = 'PUBLICADO'
+    DOCUMENTOSTATUS = (
+        (FINALIZADO, 'FINALIZADO'),
+        (EM_CURSO, 'EM CURSO'),
+        (PUBLICADO, 'PUBLICADO')
+    )
+    def __str__(self):
+        return self.DOCUMENTOSTATUS
+
+# SITUACAO OCORRENCIA
+class SituacaoTaxonomia():
+    NAO_INVESTIGADO = 'NAO INVESTIGADO'
+    INVESTIGADO = 'INVESTIGADO'
+    EM_ANALISE = 'EM ANALISE'
+    SITUACAO = (
+        (NAO_INVESTIGADO, 'NAO INVESTIGADO'),
+        (INVESTIGADO, 'INVESTIGADO'),
+        (EM_ANALISE, 'EM ANALISE')
+    )
+    def __str__(self):
+        return self.SITUACAO
