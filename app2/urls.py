@@ -1,8 +1,10 @@
+# -*- encoding: utf-8 -*-
 from django.conf.urls import patterns, include, url
 from artigos.feeds import ArtigosRss
 from django.conf import settings
 
 from django.contrib import admin
+from ajax_select import urls as ajax_select_urls
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -11,7 +13,8 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'artigos.views.index'),
+    url(r'^$', include(admin.site.urls)),
+    #url(r'^$', 'artigos.views.index'),
     url(r'^artigo/(?P<url>[^\.]+)','artigos.views.artigo'),
     url(r'^paginacao/(?P<pagina>[^\.]+)','artigos.views.index'),
     url(r'^form_pesquisa/$', 'artigos.views.form_pesquisa'),
