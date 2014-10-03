@@ -1,0 +1,8 @@
+Erro na conexão com MYSQL
+
+Here's what that looks like. If you are using Python 3, edit the /lib/python3.2/site-packages/mysql/connector/django/compiler.py file, and change line 6 from this:
+
+from django.utils.six.moves import zip_longest as six_zip_longest
+to this:
+
+from itertools import zip_longest
